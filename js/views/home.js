@@ -1,5 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'text!templates/home.html', 'views/car/list'], function($, _, Backbone, tmpHome, carListView) {
+/*
+* jqm-backbone-require v@VERSION
+* https://github.com/spawnrider/jqm-backbone-require
+*
+* Copyright 2012 Yohann Ciurlik
+* Released under the Creative Commons Attribution-ShareAlike 3.0 France License.
+* http://creativecommons.org/licenses/by-sa/3.0/fr/deed.en
+*
+*/
+define(['jquery', 'underscore', 'backbone', 'helper', 'text!templates/home.html', 'views/car/list'], function($, _, Backbone, Helper, tmpHome, carListView) {
 	var view = Backbone.View.extend({
+		transition: 'slide',
+		reverse: true,
 		initialize : function() {
 			this.carlistview = new carListView();
 		},
@@ -7,27 +18,10 @@ define(['jquery', 'underscore', 'backbone', 'text!templates/home.html', 'views/c
 			$(this.el).append(_.template(tmpHome, {}));
 
 			console.log("Rendering subelements...");
-			this.assign({
+			Helper.assign(this, {
 				'#carListView' : this.carlistview
 			});
 			return this.el;
-		},
-		assign : function(selector, view) {
-			var selectors;
-
-			if (_.isObject(selector)) {
-				selectors = selector;
-			} else {
-				selectors = {};
-				selectors[selector] = view;
-			}
-
-			if (!selectors)
-				return;
-
-			_.each(selectors, function(view, selector) {
-				view.setElement(this.$(selector)).render();
-			}, this);
 		}
 	});
 
