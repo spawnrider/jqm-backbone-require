@@ -11,6 +11,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 		// last argument must always be the Application
 		initialize : function() {
 			console.log('Router initialization...');
+			// App must always be the last argument passed to the router constructor
 			App = _.last(arguments);
 
 			// Handle back button throughout the application
@@ -21,9 +22,9 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
 			this.firstPage = true;
 			console.log('Router initialized');
 		},
-
 		defaults : function() {
-			console.log("View default");
+			console.log("View defaults");
+			// Retrieve the first view
 			for (var view in App.Views) {
 				console.log("View : "+view);
 				this.changePage(new App.Views[view]);
